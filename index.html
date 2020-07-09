@@ -1,0 +1,1595 @@
+<html>
+
+<head>
+<style>
+h1 {
+    background-color: lightgreen;
+	text-align:center;
+}
+</style>
+
+
+
+
+
+
+
+
+<style>
+.yellowBackgnd{
+background-color: yellow;
+}
+
+
+
+
+.gundi {
+    background-color:yellow; /* Green */
+    border: yes;
+    color: black;
+    padding: 1px 5px ;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 2px;
+    cursor: pointer; }
+	
+.gundi2 {
+    background-color:fuchsia; /* Green */
+    border: yes;
+    color: black;
+    padding: 1px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 2px;
+    cursor: pointer; }
+
+p {
+    background-color: DarkSalmon;
+}
+	
+.qText{
+background-color: lightgreen;
+
+}
+
+.srb{
+background-color: coral;
+}
+
+.QuizName{
+font-size: 20px;
+background-color: Khaki;
+}
+</style>
+
+<style>
+body {
+    background-color: lightblue;
+}
+</style>
+
+
+
+<script>
+var Q ;
+var QQ=0; 
+var score=0;
+var resp;
+var replies=[];
+resp="";
+Q = -1;
+var QBsize,NQ;
+//========================== The Question + Correct Answer Bank ==============================================
+var QAlist=[];
+var QuizTitles=["Quizz No.1 Basic Concepts",
+                "Quizz No.2 OC Relaying",
+				"Quizz No.3",
+                "Quizz No.4",
+				"Quizz No.5",
+                "Quizz No.6",
+				"Quizz No.7",
+                "Quizz No.8",
+				"Quizz No.9",
+                "Quizz No.10",
+				"Quizz No.11",
+                "Quizz No.12",
+				"Quizz No.13",
+                "Quizz No.14",
+				"Quizz No.15",
+                "Quizz No.16",
+				"Quizz No.17",
+                "Quizz No.18",
+				"Quizz No.19",
+                "Quizz No.20"
+				];	   
+var QZ1=[ 
+            "Q.1 Most frequent faults (short circuits) on transmission lines are caused by :",
+                "(a) conductors breaking and falling on ground",
+                "(b) conductors touching each other due to high winds",
+                "(c) flash-over of insulators",
+                "(d) external grounded objects touching the HV lines",
+                "c",
+            "Q.2 The most pronounced effect of a short-circuit fault is: ",
+                "(a) build-up of current magnitude and collapse of voltage at relay location ",
+                "(b) drastic reduction in current and increase in voltage at relay location",
+                "(c) build-up of current having low lagging p.f. accompanied by drop in voltage",
+                "(d) build-up of current having low leading p.f. accompanied by drop in voltage",
+                "c" ,
+			"Q.3 Statistically the most probable fault is:",
+                "(a) double line to ground",
+                "(b) triple line to ground",
+                "(c) single line to ground",
+                "(d) line to line",
+                "c",
+            "Q.4 The arc resistance is given by the following Warrington formula",
+                "(a) 8750(s+3ut)/I^1.4",
+                "(b) 8750(3s+3ut)/I^0.4",
+                "(c) 5780(s/3+3ut)/I^1.4",
+                "(d) 7580(s/3+3ut)/I^1.4",
+                "a" ,
+		    "Q.5 The least severe fault on a transmission line is ",
+                "(a) L-L-G",
+                "(b) L-G",
+                "(c) L-L ",
+                "(d) L-L-L",
+                "b",
+            "Q.6 In practice, the single line to ground fault on a transmission line takes place between: ",
+                "(a) Over-head ground wire and the conductor, at the insulator",
+                "(b) conductor and the earth below anywhere along the conductor",
+                "(c) conductor and tower",
+                "(d) over-head ground wire and the conductor anywhere along the conductor",
+                "a" ,
+			"Q.7 The most severe fault on a transmission line is:",
+                "(a) L-G",
+                "(b) L-L-G",
+                "(c) L-L",
+                "(d) L-L-L",
+                "d",
+            "Q.8 Select the most appropriate attribute of a good protective system: ",
+                "(a) efficiency",
+                "(b) effectiveness",
+                "(c) economy",
+                "(d) sensitivity, selectivity and speed, dependability and security",
+                "d" ,
+			"Q.9 Power system protection is provided so that",
+                "(a) faults are prevented",
+                "(b) damage subsequent to fault is mitigated",
+                "(c) information is relayed",
+                "(d) economic operation of power system is achieved",
+                "b",
+            "Q.10 When back-up protection operates: ",
+                "(a) there is wider disruption than when only primary protection operates ",
+                "(b) there is lesser disruption",
+                "(c) disruption is same as that when only primmary protection operates",
+                "(d) there is no disruption",
+                "a" 
+				 ];				 
+				 
+var QZ2=[ 
+            "Q.1 Which expression gives the operating time of  the IDMT over-currentrelay :",
+                "(a) (TMS)(.41)/((PSM^1.02)  -1)",
+                "(b) (TMS)(1.4)/((PSM^1.02)  -1)",
+                "(c) (TMS)(.41)/((PSM^0.02)  -1)",
+                "(d) (TMS)(.14)/((PSM^0.02)  -1)",
+                "d",
+            "Q.2 Which expression gives the operating time of  the very inverse over-current relay : ",
+                "(a) (TMS)(13.5)/((PSM)  -1)",
+                "(b) (TMS)(31.5)/((PSM)  -1)",
+                "(c) (TMS)(1.35)/((PSM^0.02)  -1)",
+                "(d) (TMS)(135)/((PSM)^0.001  -1)",
+                "a" ,
+			"Q.3 Which expression gives the operating time of  the extremely inverse over-current relay",
+                "(a) (TMS)(8)/((PSM)  -1)",
+                "(b) (TMS)(80)/((PSM^2)  -1)",
+                "(c) (TMS)(800)/((PSM^0.008)  -1)",
+                "(d) (TMS)(0.8)/((PSM^0.08)  -1)",
+                "b",
+            "Q.4 If ZS/ZL ratio is high it is preferable to use which of the following OC relay:",
+                "(a) extremely inverse ",
+                "(b) IDMT",
+                "(c) very inverse",
+                "(d) DTOC",
+                "d" ,
+		    "Q.5 If DTOC relays are used on a radial transmission line, the operating time goes on building up  ",
+                "(a) towards source",
+                "(b) towards remote end",
+                "(c) towards middle",
+                "(d) is independent of fault location",
+                "a",
+            "Q.6 The number of relaying input quantities and the number of settings for an overcurrent relay are: ",
+                "(a) one input  , two settings",
+                "(b) two inputs , one settings",
+                "(c) one input  , one setting" ,
+                "(d) two inputs , two settings",
+                "d" ,
+			"Q.7 In relaying, 'direction' refers to the direction of :",
+                "(a) current",
+                "(b) voltage",
+                "(c) phase angle of current w.r.t. voltage",
+                "(d) direction of nearest bus",
+                "c",
+            "Q.8 If wattmeter is considered as a directional relay , then its MTA will be:  ",
+                "(a) 90 degrees ",
+                "(b) 0 degrees",
+                "(c) 30 degrees",
+                "(d) 60 degrees",
+                "b" ,
+		    "Q.9 Ideally the physical location of backup protection and the principle on which it operates should be :",
+                "(a) same location      , same principle",
+                "(b) same location      , different principle",
+                "(c) different location , same principle",
+                "(d) different location ,  different principle",
+                "d",
+            "Q.10 Given that plug setting =1.5A, Irelay =9.0A, for an OC relay the PSM will be : ",
+                "(a) 13.5",
+                "(b) 0.16",
+                "(c) 1.35",
+                "(d) 6.0",
+                "d" 
+				];
+				
+var QZ3=[		
+            "Q.1 Probability of fault on which element of the power system is the highest : ",
+                "(a) generator ",
+                "(b) transformer ",
+                "(c) transmission line  ",
+                "(d) motor ",
+                "c" ,
+            "Q.2 Protection of low voltage systems is from the view point of : ",
+                "(a) continuity of supply",
+                "(b) angle stability of the system",
+                "(c) speed of protection",
+                "(d) voltage stability of the system",
+                "a" ,
+			"Q.3 In a three phase system the number of possible shunt faults is : ",
+                "(a) 3 ",
+                "(b) 6 ",
+                "(c) 11 ",
+                "(d) 9 ",
+                "c" ,
+            "Q.4 The aim of reclosing in case of EHV systems is : ",
+                "(a) maintain continuity of supply ",
+                "(b) maintain angle stability of the system",
+                "(c) maintain voltage stability of the system",
+                "(d) increase speed of protection",
+                "b" ,	
+			"Q.5 Which sequence of CB operations indicates successful reclosure : ",
+                "(a) open -> closed ",
+                "(b) closed -> open -> closed -> open",
+                "(c) closed -> open",
+                "(d) closed ->open -> closed",
+                "d" ,
+            "Q.6 At 50 Hz, the time period of one cycle is : ",
+                "(a) 2   ms",
+                "(b) 20  ms",
+                "(c) 200 ms",
+                "(d) 0.2 ms",
+                "b" ,
+			"Q.7 Assuming that there was a fault in the zone of primary protection, which of the following scenarios(s) can be classified as maloperation of backup protection : ",
+                "(a) both primary and backup have tripped out their associated CBs ",
+                "(b) primary did not operate but backup has tripped out its CB",
+                "(c) primary has tripped out its CB and backup has resetted itself after the sensing the fault",
+                "(d) neither primary nor backup protection has operated",
+                "a" ,
+            "Q.8 Which is the correct direction of the flow of information in a relaying scenario : ",
+                "(a) CT/PT -> CB    -> Relay",
+                "(b) Relay -> CT/PT -> CB ",
+                "(c) CT/PT -> Relay -> CB    ",
+                "(d) CB    -> Relay -> CT/PT   ",
+                "c" ,		
+			"Q.9 L-L-L-G fault will have different effect than L-L-L fault if : ",
+                "(a) There is a positive sequence source ",
+                "(b) There is a negative sequence source",
+                "(c) There is a zero sequence source",
+                "(d) There is a no zero sequence source",
+                "c" ,
+            "Q.10 The aim of reclosing in case of low voltage power systems is : ",
+                "(a) maintain continuity of supply",
+                "(b) main stability of the system",
+                "(c) increase selectivity of protection",
+                "(d) economic operation of the power system",
+                "a" 
+				];				 
+var QZ4=[	"Q.1 Pick-up value of an OC relay is the value of current  : ",
+                "(a) below which the relay picks up ",
+                "(b) above which the relay picks up",
+                "(c) at which the relay picks up",
+                "(d) slightly above which the relay picksup",
+                "d" ,
+            "Q.2 Plug setting multiplier (PSM) is defined as : ",
+                "(a) relay current / plug setting ",
+                "(b) plug setting/relay current",
+                "(c) relay current x plug setting",
+                "(d) 1/plug setting",
+                "a" ,
+			"Q.3 The operating time of an IDMT OC relay corresponding to PSM=1 and TMS =1 will be : ",
+                "(a) 1 s ",
+                "(b) 3.0 s",
+                "(c) infinite ",
+                "(d) 30   s",
+                "b" ,
+            "Q.4 The operating time for standard IDMT characteristics corresponding to PSM=10 and TMS=0.1 will be  : ",
+                "(a) 0.3 s",
+                "(b) 3.0 s",
+                "(c) 30  s",
+                "(d) 3   ms",
+                "a" ,	
+			"Q.5 To create torque on the rotor of an induction type relay we need : ",
+                "(a) two alternating fluxes shifted in space as well as in time ",
+                "(b) single alternating flux",
+                "(c) two alternating flues in phase with each other",
+                "(d) one alternating flux and one DC flux",
+                "a" ,
+            "Q.6 System impedance ratio is defined as : ",
+                "(a) ZS/ZL ",
+                "(b) ZL/ZS",
+                "(c) Zsurge/ZL",
+                "(d) ZL/Zsurge",
+                "a" ,
+			"Q.7 The pick-up value of an IDMT relay should be based on : ",
+                "(a) RMS value of fault current ",
+                "(b) peak value of fault current",
+                "(c) average value of fault current",
+                "(d) instantaneous value of fault current",
+                "a" ,
+            "Q.8 Assuming a purely inductive transmission line, the value of DC offset in fault current will be maximum when fault takes place at an instant when : ",
+                "(a) voltage is passing through positive maximum ",
+                "(b) voltage is passing through zero",
+                "(c) voltage is passing throgh 1/2 the peak value",
+                "(d) voltage is passing through negative maximum",
+                "b" ,		
+			"Q.9 DC offset in fault current causes conventional OC relays to : ",
+                "(a) over-reach",
+                "(b) underreach",
+                "(c) reach remains unaffted due to DC offset",
+                "(d) over-reach for positive DC offset and under-reach for negative DC offset",
+                "a" ,
+            "Q.10 For a transmission line modelled as a series R-L circuit the expression for fault current, (given that alpha is the switching angle and phi is the power factor angle) is, ",
+                "(a) i(t)= Im( sin(&omega t-phi+alpha)- Im sin(alpha-phi) exp(- R t / L)      ",
+                "(b) i(t)= Im( sin(wt-phi+alpha)+ Im sin(alpha-phi) exp(- R t / L) ",
+                "(c) i(t)= Im( sin(wt-phi+alpha)- Im sin(alpha-phi) exp( R t / L) ",
+                "(d) i(t)= Im( sin(wt-phi+alpha)- Im sin(alpha+phi) exp(- R t / L) ",
+                "a" 	
+             
+                 ];			 
+var QZ5=[	"Q.1 The number of input quantities and setting for a  phase fault directional relay-element is : ",
+                "(a) a single relaying quantity and a single setting",
+                "(b) two relaying quantity and two setting",
+                "(c) two relaying quantities and a single setting",
+                "(d) a single relaying quantity and two setting",
+                "b" ,
+            "Q.2 The tripping direction of a directional relay should be kept as : ",
+                "(a) always towards the local bus ",
+                "(b) always away from the local bus",
+                "(c) can be towards or away depending upon circumstances",
+                "(d) can be decided only after load flow study",
+                "b" ,
+			"Q.3 In which of the following situation there is no need to provide directional over current protection : ",
+                "(a) single-end fed , parallel feeder ",
+                "(b) double-end fed, single feeder",
+                "(c) single-end fed, single feeder",
+                "(d) ring main",
+                "c" ,
+            "Q.4 Which of the voltage-current combination correspond to the 30 degrees connection of the directional phase fault relay for phase a : ",
+                "(a) Ia, Vac ",
+                "(b) Ia, Vca",
+                "(c) Ia, Vac + Vbc",
+                "(d) Ia, Vac + Vcb",
+                "a" ,	
+			"Q.5 Which of the voltage-current combination correspond to the 60 degrees connection of the directional phase fault relay for phase a  : ",
+                "(a) Ia,Vab+Vbc",
+                "(b) Ia, Vac+Vbc",
+                "(c) Ia, Vac",
+                "(d) Ia, Vab",
+                "b" ,
+            "Q.6 Which of the voltage-current combination correspond to the 90 degrees connection of the directional phase fault relay for phase a  : ",
+                "(a) Ia, Vcb",
+                "(b) Ia, Vca+Vcb",
+                "(c) Ia, Vbc",
+                "(d) Ia, Vab",
+                "c" ,
+			"Q.7 The reach of the directional element is : ",
+                "(a) ideally infinite in tripping direction and zero in non-tripping direction",
+                "(b) ideally up to the end of the line section",
+                "(c) extends up to 80% of the line section",
+                "(d) extends up to 50% of the adjoining line section",
+                "a" ,
+            "Q.8 A wattmeter , in principle, can best be used as : ",
+                "(a) an over current relay ",
+                "(b) directional relay",
+                "(c) differential relay",
+                "(d) distance relay",
+                "b" ,		
+			"Q.9 The torque equation of an electromagentic directional relay, given that theta is the angle between Vpc and Icc and tau is MTA, is : ",
+                "(a) Torque = k |Vpc| | Icc |cos( theta - tau )",
+                "(b) Torque = k |Vpc| | Icc |sin( theta - tau )",
+                "(c) Torque = k |Vpc| | Icc |cos( theta + tau )",
+                "(d) Torque = k |Vpc| | Icc |cos( tau - theta )",
+                "a" ,
+            "Q.10 Which of the following scenarios refers to fault behind a directional relay : ",
+                "(a) voltage and current are of normal magnitude  with lagging pf of 0.8 ",
+                "(b) voltage is low, current is large in magnitude and leads the voltage by angle greater than 90 degrees",
+                "(c) voltage is low, current is large in magnitude and lags the voltage by angle close to but less than 90 degrees",
+                "(d) voltage is low, current is large in magnitude and leads the voltage by angle less than 90 degrees",
+                "b" 	
+                ];	
+				
+var QZ6=[	"Q.1 When current is entering the dotted terminal on the primary of a transformer, the current on the similarly dotted secondary terminal: ",
+                "(a) leaves the terminal irrespective of p.f. of load",
+                "(b) enters the terminal irrespective of p.f. of load",
+                "(c) enters the terminal for inductive loads and leaves for capacitive loads",
+                "(d) enters the terminal for capacitive loads and leaves for inductive loads",
+                "a" ,
+            "Q.2 The MMFs due to  currents which are made to enter the similarly dotted terminals on primary and secondary of a two winding transformer  : ",
+                "(a) oppose each other ",
+                "(b) aid each other ",
+                "(c) be at time quadrature with each other",
+                "(d) will not interact with each other ",
+                "b" ,
+			"Q.3 In differential protection, we compare : ",
+                "(a) only RMS value ( magnitude) of currents entering and leaving the protected zone ",
+                "(b) only phase angles of currents entering and leaving the protected zone",
+                "(c) both the magnitude as well as the angle i.e, phasors are compared",
+                "(d) only peak values of currents entering and leaving the protected zone",
+                "c" ,
+            "Q.4 Differential protection : ",
+                "(a) is ideally suited for low voltage elements whose terminals are physically apart ",
+                "(b) is ideally suited for elements whose terminals are physically close irrespective of voltage",
+                "(c) is ideally suited for high voltage elements whose terminals are physically apart",
+                "(d) is ideally suited for elements whose terminals are physically far apart irrespective of voltage",
+                "b" ,	
+			"Q.5 A through-fault is   : ",
+                "(a) an open-circuit fault located inside the zone of protection of differential protection",
+                "(b) an open-circuit fault located outside the zone of protection of differential protection",
+                "(c) a short-circuit fault located inside the zone of protection of differential protection",
+                "(d) a short-circuit fault located outside the zone of protection of differential protection",
+                "d" ,
+            "Q.6 With reference to differential protection, the spill current is the current  : ",
+                "(a) which flows through the protected equipment during fault",
+                "(b) which can circulate on the CT secondary side",
+                "(c) which can not circulate between the CT secondaries during internal fault ",
+                "(d) which can not circulate between the CT secondaries , irrespective of operating condition",
+                "d" ,
+			"Q.7In simple differential scheme the OC relay is connected in : ",
+                "(a) circulating current path on CT secondary side",
+                "(b) spill  current path on CT secondary side",
+                "(c) through current path on primary side",
+                "(d) across secondary terminals of any of the CTs",
+                "b" ,
+            "Q.8 Stability ratio of a differential scheme is defined as : ",
+                "(a) Ifmax/ Ifmin",
+                "(b) Ifmin / fmax",
+                "(c) (Ifmax - Ifmin)/(Ifmax + Ifmin)",
+                "(d) (Ifmax + Ifmin)/(Ifmax - Ifmin)",
+                "a" ,		
+			"Q.9 The slope of the percentage biased differential relay is proportional to : ",
+                "(a) Nr/No",
+                "(b) No/Nr",
+                "(c) (Nr+No)/(Nr-No)",
+                "(d) (Nr-No)/(Nr+No)",
+                "a" ,
+            "Q.10When a CT is saturated it delivers  : ",
+                "(a) a DC current ",
+                "(b) a very spiky current , whse RMS magnitude is small",
+                "(c) zero current",
+                "(d) a current at the power frequency but with small magnitude",
+                "b" 	
+             
+                 ];				 
+var QZ7=[	"Q.1 Slelect the correct statement for protection CT : ",
+                "(a) should not saturate during maximum fault",
+                "(b) should saturate during maximum fault ",
+                "(c) should saturate during minimum fault",
+                "(d) should saturate during normal load flow",
+                "a" ,
+            "Q.2 Slelect the correct statement for measurement CT : : ",
+                "(a) should not saturate during maximum fault",
+                "(b) should saturate during maximum fault ",
+                "(c) should saturate during minimum fault",
+                "(d) should saturate during normal load flow",
+                "c" ,
+			"Q.3  During a short circuit fault, in a properly designed protection system, the protection CT: ",
+                "(a) reproduces the fault current on the secondary side as given by its accuracy class ",
+                "(b) does not faithfully reproduce the fault currrent",
+                "(c) causes the fault current to reduce",
+                "(d) gets opecircuited",
+                "a" ,
+            "Q.4  During an open circuit fault on the primary side , a protection CT : ",
+                "(a) delivers rated secondary current to its burden ",
+                "(b) delivers current equal to the no load magnitizing current of the CT to the burden",
+                "(c) delivers zero current to its burden",
+                "(d) delivers a current with a spiky waveform to the burden",
+                "c" ,	
+			"Q.5 For  a 1000/5A CT which is designated as C200 as per the IEEE convention, which of the following statemet is correct : ",
+                "(a) CT can carry secondary current of 200A without exceeding 10% ratio error, under standard burden ",
+                "(b) CT can carry 1000 A without exceeding 10% ratio error under standard burden ",
+                "(c) CT secondary voltage is 1000V when carrying rated current and error is within 10% under standatd burdeen",
+                "(d) CT secondary voltage is 100V when carrying 20 times rated current and error is within 10% under standatd burdeen",
+                "d" ,
+            "Q.6 As the impedance of the CT bruden goes on increasing , with the primary current constant : ",
+                "(a) CT moves towards saturation giving rise to increased error",
+                "(b) CT moves away from saturation giving rise to decreased error",
+                "(c) CT secondary voltage decreases ",
+                "(d) CT secondary voltage remains constant",
+                "a" ,
+			"Q.7 For a CT which is feeding an over-current relay : ",
+                "(a) both ratio and phase angle errors are important",
+                "(b) only ratio error is important",
+                "(c) only phase angle error is important",
+                "(d) neither ratio nor phase angle error is important",
+                "b" ,
+            "Q.8 For a CT which is feeding a distance relay  : ",
+                "(a) both ratio and phase angle errors are important",
+                "(b) only ration error is important",
+                "(c) only phase angle error is important",
+                "(d) only phase angle error is important",
+                "a" ,		
+			"Q.9 For CT and PT feeding a directional element  : ",
+                "(a) only CT phase angle error is important ",
+                "(b) only PT phase angle error is important",
+                "(c) only phase angle errors of Ct and PT are important",
+                "(d) only ratio errors of CT and PT are important",
+                "c" ,
+            "Q.10 In order to faithfully reproduce fault current in a system with large X/R ratio   : ",
+                "(a) area of cross section of the CT should be large",
+                "(b) area of cross section of the CT should be small",
+                "(c) length of magnetic path in the CT should be large",
+                "(d) length of magnetic path in the CT should be samll",
+                "a" 	
+             
+                 ];				 
+var QZ8=[	"Q.1 Magnetizing inrush in case of a transformer takes place : ",
+                "(a) only during switching-off",
+                "(b) during every switching-on operation",
+                "(c) both during switching on and switching off during every such operation",
+                "(d) only during switching on but depending up on switching instant and residual flux",
+                "d" ,
+            "Q.2 The ratio of  no load magnetizing current  to full load currentfor a well designed transformer is  of the order of: ",
+                "(a) a few percent ",
+                "(b) 10% to 20 %",
+                "(c) 40% to 50 %",
+                "(d) 70 to 80  % ",
+                "a" ,
+			"Q.3 The % impedance of a transformer is 12%. The current for a three phase short circuit on its secondary  terminals , assuming an ideal source will be : ",
+                "(a) 8.3333 p.u.  ",
+                "(b) 0.8333 p.u,",
+                "(c) 1.2    p.u.",
+                "(d) 12     p.u.",
+                "a" ,
+            "Q.4 As seen by the differential protection scheme of a transformer the inrush condition appears like : ",
+                "(a) external fault ",
+                "(b) internal fault",
+                "(c) through fault",
+                "(d) slight overload",
+                "b" ,	
+			"Q.5 The predominant harmonic in the inrush current is : ",
+                "(a) second",
+                "(b) third",
+                "(c) fifth",
+                "(d) seventh",
+                "a" ,
+            "Q.6 The reach of the restricted earth fault (REF) relay for a transformer is restricted to : ",
+                "(a) entire transformer only ",
+                "(b) only star connected winding of the transformer",
+                "(c) nearest bus",
+                "(d) only delta connected winding of the transformer",
+                "a" ,
+			"Q.7  Over-fluxing in a transformer is caused by the following types of operating conditions: ",
+                "(a) over-voltage at rated frequency",
+                "(b) over-loading at rated frequency",
+                "(c) under-voltage at rated frequency",
+                "(d) over-frequency at rated voltage",
+                "a" ,
+            "Q.8 Buchholz relay gives protection against : ",
+                "(a) over-loading",
+                "(b) opencircuit faults",
+                "(c) short circuit faults under oil within ransformer tank",
+                "(d) through faults",
+                "c" ,		
+			"Q.9 Which protection would you recommend as a primary protection for a 250 MVA power transformer : ",
+                "(a) over-current",
+                "(b) simple differential protection",
+                "(c) % biased differential protection with harmonic restraint",
+                "(d) distance protection",
+                "c" ,
+            "Q.10 Select the correct type of connection of CT secondaries for differential protection of a delta-star transformer with star side grounded : ",
+                "(a) star connection on both sides ",
+                "(b) delta connection on star side and star connection of delta side",
+                "(c) delta connection on both sides",
+                "(d) delta connection on delta side and star connection on star side",
+                "b" 	
+             
+                 ];			 
+var QZ9=[	"Q.1 If the secondary of a CT is open-circuited  while the primary is carrying current: ",
+                "(a) primary current will become zero",
+                "(b) very high voltage will be induced across the secondary winding ",
+                "(c) very high voltage will be induced across the primary winding",
+                "(d) secondary voltage will become zero",
+                "b" ,
+            "Q.2 Interposing CT is used in transformer differential protection for  : ",
+                "(a) fine tuning the ratio of transformation of the CTs ",
+                "(b) compensating the phase angle error of the main CTs",
+                "(c) isolation from high voltage",
+                "(d) compensate for phase shift produced by star to delta or delta to star transformation",
+                "a" ,
+			"Q.3 If the primary current of a CT is kept constant, which of the following will cause the CT to move towards saturation : ",
+                "(a) increase in burden magnitude way beyond rated value ",
+                "(b) decreasing the burden magnitude  ",
+                "(c) keeping the burden magnitude at rated value but mking it highly inductive ",
+                "(d) keeping the burden magnitude at rated value but mking it highly inductive ",
+                "a" ,
+            "Q.4 An 80A load with 25% overload is connected through a CT with rated secondary current of 1A to an OC relay with plug setting of 1A. If the relay should be on the verge of operation for a primary current of 100A the CT ratio should be : ",
+                "(a) 80/1 ",
+                "(b) 25/1 ",
+                "(c) 100/1",
+                "(d) 125/1",
+                "c" ,	
+			"Q.5 If the current through the relay operating coil is 5A while the plug setting of the relay is done at 0.5A. The PSM will be : ",
+                "(a) 0.25",
+                "(b) 0.5",
+                "(c) 5.0",
+                "(d) 10.0 ",
+                "d" ,
+            "Q.6 For the protection of a 3-phase line which of the following OC protection scheme will be optimum : ",
+                "(a) 3 nos. of phase fault OC relays and 1 no. of ground fault OC relay",
+                "(b) 1 nos. of phase fault OC relays and 1 no. of ground fault OC relay",
+                "(c) 2 nos. of phase fault OC relays and 1 no. of ground fault OC relay",
+                "(d) 3 nos. of phase fault OC relays and 3 no. of ground fault OC relay",
+                "c" ,
+			"Q.7 When the fault on a transmission line takes place the phase angle between voltage and current is : ",
+                "(a) zero",
+                "(b) current lags voltage by 90 degrees",
+                "(c) current leads voltage by 90 degrees",
+                "(d) current lags voltage by system impedance angle ( atan(X/R)) ",
+                "d" ,
+            "Q.8 A capacitive voltage transformer consists of a capacitive potential divider followed by a  : ",
+                "(a) resistive potential divider",
+                "(b) inductive potential divider",
+                "(c) another capacitive potential divider",
+                "(d) a conventional step-down electromagnetic transformer",
+                "d" ,		
+			"Q.9 For a CT, it is not safe to : ",
+                "(a) open circuit primary ",
+                "(b) opencircuit the secondary when primary is nor carrying current",
+                "(c) open circuit the secondary when primary is carrying current",
+                "(d) short circuit the secondary when the primary is carrying current",
+                "c" ,
+            "Q.10 At the knee point , a 10% increase in excitation voltage results in : ",
+                "(a) 10 % increase in excition  current",
+                "(b) 20 % increase in excition  current",
+                "(c) 30 % increase in excition  current",
+                "(d) 50 % increase in excition  current",
+                "d" 	
+             
+                 ];				 
+var QZ10=[	"Q.1 The resistance and reactance of pressure coil of a directional relay is 100.0 ohms and j 100 ohms respectively. The MTA of the relay will be  : ",
+                "(a) 30 degrees",
+                "(b) 70 degrees",
+                "(c) 45 degrees",
+                "(d) 20 degrees",
+                "c" ,
+            "Q.2 Which of the following signal will cause a directional relay with an MTA of 45 degrees to trip  : ",
+                "(a) Vpc = 100 V at zero degrees, Icc = 5 A at -50 degrees",
+                "(b) Vpc = 100 V at zero degrees, Icc = 5 A at -60 degrees",
+                "(c) Vpc = 100 V at zero degrees, Icc = 5 A at -90 degrees",
+                "(d) Vpc = 100 V at zero degrees, Icc = 5 A at  90 degrees",
+                "d" ,
+			"Q.3 For a correctly designed protection system, the angle between the voltage and current supplied to the directional unit should be  : ",
+                "(a) close to the MTA",
+                "(b) MTA + 90 degrees",
+                "(c) MTA - 90 degrees",
+                "(d) negative of MTA",
+                "a" ,
+            "Q.4 OC relay B is backing up OC relay A. For a certain fault in primary protection zone of relay A, relay A takes 0.3 sec to operate. If the CB operating time is 0.5s, assuming no overshoot, what should be the correct operating time of relay B, so that there is no loss of selectivity between A and B : ",
+                "(a) < 0.8 sec",
+                "(b) > 0.8 sec",
+                "(c) < 0.3 sec",
+                "(d) < 0.2 ",
+                "b" ,	
+			"Q.5 Maximum torque on the  disc in an electromagnetic induction type directional relay will be obtained when the angle between the two interacting fluxes is   : ",
+                "(a) 0 degree ",
+                "(b) 30 degrees",
+                "(c) 60 degrees",
+                "(d) 90 degrees",
+                "d" ,
+            "Q.6 Slope of the internal fault characteristics, on the (I1-I2) Vs (I1+I2)/2 plane, for differential protection for single end fed systems is  : ",
+                "(a)   200% ",
+                "(b) < 200% ",
+                "(c) > 200% ",
+                "(d) < 100% ",
+                "a" ,
+			"Q.7 Slope of the internal fault characteristics, on the (I1-I2) Vs (I1+I2)/2 plane, for differential protection for double end fed systems is  : ",
+                "(a)   200%",
+                "(b) < 200%",
+                "(c) > 200%",
+                "(d) < 100%",
+                "c" ,
+            "Q.8 For a 5A CT connected to a burden, the total impedance of the secondary winding ,leads and burden is 0.01 ohms. When a fault current which is 20 times the rated primary current flows, the VA output of the CT will be   : ",
+                "(a) 0.1  VA ",
+                "(b) 1.0  VA",
+                "(c) 10.0 VA",
+                "(d) 100  VA",
+                "b" ,		
+			"Q.9 Slope of tripping characteristics, on the  (I1-I2) Vs (I1+I2)/2 plane , of a simple differential relay  is : ",
+                "(a) 0 degrees",
+                "(b) 45 degrees",
+                "(c) 60 degrees",
+                "(d) 75 degrees",
+                "a" ,
+            "Q.10 The motivation behind going in for a capacitive voltage transformer instead of an electromagnetic voltage transformer is : ",
+                "(a) to get a faster transient response",
+                "(b) to achieve better accuracy in steady state ",
+                "(c) to reduce the size and cost",
+                "(d) to reduce the losses",
+                "c" 	
+             
+                 ];					 
+var QZ11=[	"Q.1 The motivation for preferring distance protection over over-current protection is : ",
+                "(a) distance protection offers higher speed ",
+                "(b) distance protection offers higher selectivity",
+                "(c) distance protection offers higher sensitivity",
+                "(d) distance protection offers higher economy",
+                "b" ,
+            "Q.2 Simple impedance relay is  : ",
+                "(a) over-current relay with voltage restraint",
+                "(b) over-current relay with directional restraint",
+                "(c) directional relay with voltage restraint",
+                "(d) directional relay with current restraint",
+                "a" ,
+			"Q.3 Mho relay is : ",
+                "(a) over-current relay with voltage restraint",
+                "(b) over-current relay with directional restraint",
+                "(c) directional relay with voltage restraint",
+                "(d) directional relay with current restraint",
+                "c" ,
+            "Q.4 Reactance relay is : ",
+                "(a) directional relay with MTA of 90 degrees, with voltage restraint",
+                "(b) over-current relay with voltage restraint",
+                "(c) over-current relay with directional restraint with MTA of 90 degrees",
+                "(d) directional relay with MTA of 45 degreea, with voltage restraint",
+                "c" ,	
+			"Q.5 The effect of arc resistance upon the reach of distance relays is : ",
+                "(a) over-reach in case of Mho but under-reach in case of simple impedance relay (SIR) and reactance relay",
+                "(b) over-reach in case of SIR but under-reach in case of Mho and reactance relay",
+                "(c) no effect on reach of any distance relay",
+                "(d) under-reach in case of Mho and SIR and no effect on reach of reactance relay",
+                "d" ,
+            "Q.6 Choose the correct sequence for increasing effect of arc resistance on reach of various distance relays  : ",
+                "(a) Mho -> SIR ->  Rectance   " ,
+                "(b) SIR -> Reactance -> Mho",
+                "(c) Reactance -> SIR -> Mho",
+                "(d) SIR -> Mho -> Reactance",
+                "c" ,
+			"Q.7 Choose the correct sequence for increasing effect of power swing on operation of various distance relays  : ",
+                "(a) Mho -> SIR ->  Rectance",
+                "(b) SIR -> Reactance -> Mho",
+                "(c) Reactance -> SIR -> Mho",
+                "(d) SIR -> Mho -> Reactance",
+                "a" ,
+            "Q.8 The reach of the first step of the three setpped distance protection is set at  : ",
+                "(a) 100% of the line section",
+                "(b) 80% to 90% of the line section",
+                "(c) 150% of the line section",
+                "(d) 50% of the line section",
+                "b" ,		
+			"Q.9 The reach of the second step of the three setpped distance protection is set at 100% of line section being considered plus  :  : ",
+                "(a) 50 % of shortest adjoining line with maximum over-reach",
+                "(b) 50 % of longest adjoining line",
+                "(c) average lenth of all adjoining lines",
+                "(d) 50 % of line section under considerationi.e., 150% of line section being considered ",
+                "a" ,
+            "Q.10 The reach of the third step of distance protection in a three stepped distance protection is set on the basis of : ",
+                "(a) shortest adjoining line",
+                "(b) longest adjoining line with maximum under-reach ",
+                "(c) average length of all adjoining lines",
+                "(d) 150% of the length of the shortest adjoining line",
+                "b" 	
+                  ];				 
+var QZ12=[	"Q.1 On the R-X diagram, the characteristics of an ideal distance relay should,  : ",
+                "(a) fit loosely around the fault characteristics of the line",
+                "(b) fit tightly around the fault characteristics of the line",
+                "(c) occupy as much area on the R-X diagram as possible",
+                "(d) occupy all the four quadrants ",
+                "b" ,
+            "Q.2 For a short length line the preferred distance relay is : ",
+                "(a) Simple Impedance Relay supervised by directional relay ",
+                "(b) Mho relay",
+                "(c) Reactance relay",
+                "(d) Reactance relay supervised by directional relay",
+                "c" ,
+			"Q.3 For long line the preferred relay is : ",
+                "(a) simple impedance relay supervised by directional relay",
+                "(b) Mho relay",
+                "(c) Reactance relay",
+                "(d) Reactance relay supervised by directional relay",
+                "b" ,
+            "Q.4 The measureing unit ideal for the fault location on transmission lines is : ",
+                "(a) Simple Impedance type",
+                "(b) Mho type ",
+                "(c) Reactance type",
+                "(d) reactance type supervised by directional unit",
+                "d" ,	
+			"Q.5 DC offset in fault current causes the distance relay to  : ",
+                "(a) always over-reach",
+                "(b) always under-reach",
+                "(c) reach remains unaffected",
+                "(d) restrain from operating foe faults within its zone of protection",
+                "a" ,
+            "Q.6 Choose the correct voltage-current pair combination for phase a-b, b-c and c-a fault : ",
+                "(a) [(Vb-Vc ),(Ib-Ic ),(Vc-Va ),(Ic-Ia )   , ( Va-Vb),(Ia-Ib ) ] ",
+                "(b) [(Vc-Va ),(Ic-Ia ),(Vb-Vc ),(Ib-Ic )   , ( Va-Vb),(Ia-Ib ) ]",
+                "(c) [(Va-Vb ),(Ia-Ib ),(Vb-Vc ),(Ib-Ic )   , ( Vc-Va),(Ic-Ia ) ]",
+                "(d) [(Va ),(Ia ),(Vb),(Ib )   , ( Vc),(Ic) ]",
+                "c" ,
+			"Q.7 For ground fault distance protection of phase 'a', the distance measuring unit should be fed with : ",
+                "(a) (Va+Vb+Vc),(Ia+Ib+Ic)",
+                "(b) (Va),(Ia+Ib+Ic)",
+                "(c) (Va),(Ia+kIo)where k is a constant for the system",
+                "(d) (Va+Vb+Vc),(Ia)",
+                "c" ,
+            "Q.8 Zero sequence current compensation factor in distance relaying of 3-phase lines is given by : ",
+                "(a) (Zo  - Z1)   /(Z1)",
+                "(b) (3Zo - Z1)   /(Z1)",
+                "(c) (Zo  - 3 Z1) /(Z1)",
+                "(d) (Zo  -Z1)    /(3 Z1)",
+                "a" ,		
+			"Q.9 The number of distance measuring units required for the 3-stepped distance protectionof a line section , at one end is : ",
+                "(a) 18 measuring units",
+                "(b) 9  measuring units",
+                "(c) 3  measuring units",
+                "(d) 6  measuring units",
+                "a" ,
+            "Q.10 Which of the following distance relay has a tendency to trip even during normal load flow : ",
+                "(a) Mho",
+                "(b) Reactance",
+                "(c) Simple Impedance ",
+                "(d) Quadrilateral ",
+                "b" 	
+             
+                 ];			 
+var QZ13=[	"Q.1 The basic motivation for using carrier-based distance protection is  : ",
+                "(a) to enable high-speed auto-reclosure by instantaneous clearing of fault from both ends",
+                "(b) to improve sensitivity of distance protection",
+                "(c) to compensate for under-reach due to arc resistance",
+                "(d) to provide back-up protection",
+                "a" ,
+            "Q.2 'Line trap' used in carrier based protection is  : ",
+                "(a) a series tuned circuit tuned at carrier frequency",
+                "(b) parallel tuned circuit tuned at carrier frequency",
+                "(c) a series tuned circuit tuned at line frequency ( 50 Hz)",
+                "(d) parallel tuned circuit tuned at line frequency (50 Hz )",
+                "b" ,
+			"Q.3 Line coupler presents  : ",
+                "(a) low impedance to carrier frequency and low impedance to power frequency",
+                "(b) low impedance to carrier frequency and high impedance to power frequency",
+                "(c) high to carrier frequency and low impedance to power frequency",
+                "(d) high impedance to carrier frequency and high impedance to power frequency",
+                "b" ,
+            "Q.4 The power-line carrier frquency is of the order of : ",
+                "(a) 10 Hz  - 50 Hz",
+                "(b) 50 kHz - 200 kHz",
+                "(c) 3 GHz  - 6 GHz",
+                "(d) 3 MHz  - 30 Mhz",
+                "b" ,	
+			"Q.5 The microwave frequency used as carrier signal for protection is of the order of : ",
+                "(a) 10 Hz  -  50 Hz",
+                "(b) 50 kHz -  200 kHz",
+                "(c) 1  GHz  - 3 GHz",
+                "(d) 3  MHz  - 30 Mhz",
+                "c" ,
+            "Q.6 When carrier is coupled between two lines, the line traps are inserted in  : ",
+                "(a) one line not connected to carrier ",
+                "(b) two of the concerned lines",
+                "(c) all three lines",
+                "(d) one line connected to carrier and one line not connected to carrier",
+                "b" ,
+			"Q.7 If a geostationary satllite at 36,000 km is used for conveying the relaying information, the delay involved between sending the signal and receiving it will be of the order of  : ",
+                "(a) 12 cycles of 50 Hz",
+                "(b) 3.6 cycles of 50 Hz",
+                "(c) 36 cycles of 50 Hz",
+                "(d) 1.2 cycles of 50 Hz",
+                "a" ,
+            "Q.8 The power output of the carrier frequency transmitter is typically of the order of   : ",
+                "(a) a few tens of watts",
+                "(b) few kilowatts",
+                "(c) few tens of kilowatts",
+                "(d) few megawatts",
+                "a" ,		
+			"Q.9 Audio tones are used for carrying information over the crrier channel. The bandwidth required for carrying this information will be : ",
+                "(a) few megahertz ",
+                "(b) few kilohertz",
+                "(c) few hundreds of kilohertz",
+                "(d) few hertz",
+                "b" ,
+            "Q.10 In which of the following schemes the carrier signal is NOT transmitted through the faulty line : ",
+                "(a) transfer trip or inter-trip",
+                "(b) permissive inter-trip",
+                "(c) pre-acceleration of zone II",
+                "(d) phase comparison relaying",
+                "c" 	
+             
+                 ];				 
+var QZ14=[	"Q.1 The trip law for cosine-type phase comparator is  : ",
+                "(a) -90 deg < Arg(Sm/Sp) < 90 deg.",
+                "(b)  0 deg < Arg(Sm/Sp) < 180 deg.",
+                "(c) -90 deg < Arg[(Sm+Sp)/(Sm-Sp)] < 90 deg. ",
+                "(d) -90 deg < Arg[(Sm-Sp)/(Sm+Sp)] < 90 deg.",
+                "a" ,
+            "Q.2 The trip law for sine-type phase comparator is  : ",
+                "(a) -90 deg < Arg(Sm/Sp)            < 90 deg.",
+                "(b) -90 deg < Arg[(Sm+Sp)/(Sm-Sp)] < 90 deg.",
+                "(c)   0 deg < Arg(Sm/Sp)           < 180 deg.",
+                "(d) -90 deg < Arg[(Sm-Sp)/(Sm+Sp)] < 90 ",
+                "c" ,
+			"Q.3 Mho type distance relay can be synthesized by using the following signals fed to a cosine type phase comparator : ",
+                "(a) Sm = ZnIr - Vr  , Sp = Vr ",
+                "(b) Sm = ZnIr       , Sp = Vr ",
+                "(c) Sm = Ir - Vr/Zn , Sp = Vr ",
+                "(d) Sm = Ir + Vr/Zn , Sp = Vr ",
+                "a" ,
+            "Q.4 Reactance type distance relay can be synthesized by using the following signals fed to a cosine type phase comparator  : ",
+                "(a) Sm = ZnIr - Vr  , Sp = Vr   ",
+                "(b) Sm = ZnIr       , Sp = Vr   ",
+                "(c) Sm = XnIr - Vr  , Sp = Xn Ir",
+                "(d) Sm = ZnIr + Vr  , Sp = Vr   ",
+                "c" ,	
+			"Q.5 Simple impedance type distance relay can be synthesized by using the following signals fed to an amplitude type comparator  : ",
+                "(a) So = Zn Ir , Sr = Vr ",
+                "(b) So = Zn Ir , Sr = Vr - Zn Ir",
+                "(c) So = Vr    , Sr = Zn Ir ",
+                "(d) So = Zn Ir + Vr  , Sr = ZnIr - Vr",
+                "a" ,
+            "Q.6 FOr signals S1 = 1 at an angle of zero deg. and S2 = 1 at an angle 135 deg, the positive coincidence period will be  : ",
+                "(a) 5 ms",
+                "(b) 7.5 ms ",
+                "(c) 2.5 ms ",
+                "(d) 10 ms ",
+                "c" ,
+			"Q.7 Two signals Sp = 1 + j 0 and Sm = -1 + j 1 are fed to a sine-comparator and a phase comparator. Choose the correct statement : ",
+                "(a) sine comparator would restrian  and cosine comparaot would  restrain ",
+                "(b) sine comparator would restrian  and cosine comparaot would  trip ",
+                "(c) sine comparator would trip      and cosine comparaot would  restrain ",
+                "(d) sine comparator would trip      and cosine comparaot would  trip ",
+                "c" ,
+            "Q.8 Negative coincidence period between two sinusoidal siganls was found to be 5 ms. The phase difference between the two must be  : ",
+                "(a) +/- 90  deg. ",
+                "(b) +/- 45  deg.",
+                "(c) +/- 60  deg.",
+                "(d) +/- 135 deg.",
+                "a" ,		
+			"Q.9 A balanced beam type electromagnetic structure is a   : ",
+                "(a) sine type comparator                                ",
+                "(b) cosine type comparator                              ",
+                "(c) amplitude comparator                                ",
+                "(d) a phase comparator with trip region of +/- 120 deg. ",
+                "c" ,
+            "Q.10 Simple impedance relay is inherently a   : ",
+                "(a) sine-type comparator   ",
+                "(b) cosine-type comparator ",
+                "(c) amplitude comparator ",
+                "(d) a phase comparator with trip region of +/- 120 deg.",
+                "c" 	
+             
+                 ];				 
+var QZ15=[	"Q.1 The starting current of a large induction motor for direct on-line starting is : ",
+                "(a) less than full load current ",
+                "(b) equal to full load current",
+                "(c) many times full load current",
+                "(d) slightly greater than full load current",
+                "c" ,
+            "Q.2  An induction motor has stalled. This will cause the current drawn by the motor to: ",
+                "(a) reduce to zero",
+                "(b) shoot-up to many times the full load value",
+                "(c) remain unchanged",
+                "(d) be equal to full load value",
+                "b" ,
+			"Q.3 The supply to a large induction motor is slightly unbalanced. This will cause the current drawn by the motor to : ",
+                "(a) be unbalanced in the same proportion as the supply voltage",
+                "(b) remain balanced",
+                "(c) get unbalanced to a large extent",
+                "(d) contain higher order harmonics",
+                "c" ,
+            "Q.4 If the starting current of an induction motor i five times the full load current, then a voltage unbalance of 3% will produce a current unbalance of approximately : ",
+                "(a) 15    %  ",
+                "(b) 8     %  ",
+                "(c) 2     %  ",
+                "(d) 1.66  %  ",
+                "a" ,	
+			"Q.5 For large induction motors whose kVA > 1/2 kVA of supply transformer the preferred protection is : ",
+                "(a) over-current ",
+                "(b) differential ",
+                "(c) distance",
+                "(d) directional ",
+                "b" ,
+            "Q.6 If a large induction motor draws starting current for an extended amount of time  : ",
+                "(a) it is a safe situation for motor",
+                "(b) it indicates a healthy condition",
+                "(c) the motor may get damaged due to over-heating",
+                "(d) it is a safe situation for the adjacent electrical motors and other equipment on the same supply transformer",
+                "c" ,
+			"Q.7 Single-phasing can be detected by a relay sensitive to  : ",
+                "(a) +ve sequence component of voltage supplied to the motor",
+                "(b) - ve sequence component of voltage supplied to the motor",
+                "(c) zero ve sequence component of voltage supplied to the motor",
+                "(d) - ve sequence component of voltage across the motor ",
+                "d" ,
+            "Q.8 If an induction motor experiences single-phasing while running  : ",
+                "(a) it will draw excessive current and get over-heated but may keep running if lightly loaded",
+                "(b) it will draw smaller current than rated ",
+                "(c) it will draw current at a power factor poorer than rated",
+                "(d) it will immediately stall",
+                "a" ,		
+			"Q.9 For protection against overload , for an induction , the preferred protection is : ",
+                "(a) thermal replica relay  ",
+                "(b) differential relay     ",
+                "(c) inverse-time OC relay  ",
+                "(d) directional relay      ",
+                "a" ,
+            "Q.10 A three-phase , 75 HP, 440V induction motor has a full load efficiency of 91% and a power factor of 83%. The nominal line currrent will be : ",
+                "(a) 79.2 A",
+                "(b) 97.2 A",
+                "(c) 80.68 A",
+                "(d) 927 A",
+                "c" 	
+            
+                 ];				 
+var QZ16=[	"Q.1 If prime-mover is lost while an alternator is delivering power to the grid, assuming that the field supply remains undisturbed, which of the following will happen : ",
+                "(a) machine will eventually stop ",
+                "(b) machine will rotate at synchronous speed but in opposite direction",
+                "(c) machine will keep running at synchronous speed in the same direction but will start drawing active power from the grid ",
+                "(d) machine will run as an induction generator",
+                "c" ,
+            "Q.2 If there is loss of excitation while the alternator is delivering power to the grid, which of the following will happen : ",
+                "(a) machine will stop rotating",
+                "(b) machine will over-speed by a large amount",
+                "(c) machine will keep rotating at synchronous speed but will draw reactive power from the grid",
+                "(d) machine will run as an induction generator",
+                "d" ,
+			"Q.3 If the main circuit breaker which connectes an alternator to grid is opened while it is delivering full power to the grid, which of the following will occur : ",
+                "(a) machine will over-speed by large amount ",
+                "(b) machine will slightly over-speed",
+                "(c) machine will stop",
+                "(d) machine will run as an induction motor ",
+                "a" ,
+            "Q.4 Consider faults on the terminals of a solidly grounded alternator. Which fault causes the largest current : ",
+                "(a) L-L-L fault",
+                "(b) L-L-G fault",
+                "(c) L-L fault",
+                "(d) L-G fault",
+                "d" ,	
+			"Q.5 Neither the positive or the negative of the DC excitation supply of an alternator is grounded. Thus the field is floating w.r.t. ground. Which fault will have very dangerous effect : ",
+                "(a) first field winding to ground fault because it will draw large current",
+                "(b) second field winding to ground fault because it will draw large current",
+                "(c) second fault on field winding because it will cause large unbalanced forces on rotor ",
+                "(d) first field winding to ground fault because it will cause large unbalanced forces on rotor  ",
+                "c" ,
+            "Q.6 Preferred protection for inter-turn faults on armature windings of an alternator is : ",
+                "(a) longitudinal simple differential protection ",
+                "(b) longitudinal % differential prottection",
+                "(c) ocer-current protection",
+                "(d) transverse differential protection using a split winding design of alternator armature ",
+                "d" ,
+			"Q.7 Preferred protection against loss of excitation in case of a turbo alternator is : ",
+                "(a) under-voltage relay ",
+                "(b) reverse power relay",
+                "(c) over-current relay",
+                "(d) offset Mho relay at the terminals of the alternator looking n to the alternator, with the centre of the Mho circle on the negative reactance axis",
+                "d" ,
+            "Q.8 If the stator of an alternator gets an unbalanced supply, which of the following will happen : ",
+                "(a) it will pull out of synchronism",
+                "(b) only thye stator will get overheated",
+                "(c) only rotor will get overheated",
+                "(d) both stator as well as rotor will get overheated",
+                "c" ,		
+			"Q.9 If a turbo alternator is allowed to run in spite of loss of prime-mover it will be detrimental to : ",
+                "(a) generator stator",
+                "(b) steam turbine blades",
+                "(c) generator rotor",
+                "(d) power grid stability ",
+                "b" ,
+            "Q.10 Tripping out of a turbo-alternator entails  : ",
+                "(a) opening the main generator CB only",
+                "(b) trippping the generatr as well as the turbine",
+                "(c) trippping the generatr , tripping the field supply as well as the turbine",
+                "(d) tripping generator, field, turbine, boiler, coal mill and putting the alternator on barring gear",
+                "d" 	
+             
+                 ];			 
+var QZ17=[	"Q.1 The basic problem encountered in applying differential protection to bus-bars is : ",
+                "(a) CT saturation of all the CTs in case of external faults ",
+                "(b) CT saturation of all the CTs in case of internal faults",
+                "(c) CT daturation because of over-load",
+                "(d) CT saturation of one of  the CTs  through which sum of all currents flows in case of external fault",
+                "d" ,
+            "Q.2 The preferred primary protection for bus-bars is : ",
+                "(a) over-current ",
+                "(b) ordinary % differential ",
+                "(c) high impedance differential",
+                "(d) distance",
+                "c" ,
+			"Q.3 The probability of faults and resulting disruption in case of bus-bars is  : ",
+                "(a) fault probability very low, disruption very low",
+                "(b) fault probability very low, disruption very high",
+                "(c) fault probability very high, disruption very low",
+                "(d) fault probability very high, disruption very high",
+                "b" ,
+            "Q.4 Stabilizing resistor in case of high impedance differential protection is used for the purpose of : ",
+                "(a) preventing maloperation becuase of one of the CTs in case of external faults",
+                "(b) preventing maloperation in case of internal faults",
+                "(c) preventing maloperation in case of break in one of the pilot wires",
+                "(d) preventing maloperation because of inrush current of transformer",
+                "a" ,	
+			"Q.5 : The voltage developed acorss the spill path during severe external fault, assuming that the CT nearest to the fault gets fully saturated is given by",
+                "(a) I_ext *Zs/CTR ",
+                "(b) I_ext *CTR/Zs",
+                "(c) Zs/I_ext* CTR",
+                "(d) CTR*Zs/I_ext",
+                "a" ,
+            "Q.6 If one of the pilot wires of a bus-bar differential scheme is broken, what will be the preferred action : ",
+                "(a) Bus-bar protection should operate thus tripping out all CBs connected to the bus",
+                "(b) an alarm should be sounded, tripping need not be immediately resorted to",
+                "(c) nothing needs to be done",
+                "(d) back-up protection should operate",
+                "b" ,
+			"Q.7 Earth leakage relay , popularly known as shock-preventer is basically a : ",
+                "(a) OC relay",
+                "(b) directional OC relay",
+                "(c) differential relay",
+                "(d) distance relay",
+                "c" ,
+            "Q.8 A bus has 3 feeders with currents of 4000A , 10,000 A nd 6000 A. Assuming that 1A CTs are to used in a simple differential scheme, the correct CT ratios will be : ",
+                "(a) 4000/1A, 1000/1A and 6000/1 A",
+                "(b) 4000/1A, 4000/1A and 4000/1 A",
+                "(c) 6000/1A, 6000/1A and 6000/1 A",
+                "(d) 10,000/1A, 10,00/1A and 10,000/1 A",
+                "d" ,		
+			"Q.9 When a CT gets completely saturated , as seen from the secondary terminals , it looks like : ",
+                "(a) a short circuit",
+                "(b) an open circuit",
+                "(c) an inductive impedance",
+                "(d) a capacitive impedance",
+                "a" ,
+            "Q.10 Burden on a CT is expressed in : ",
+                "(a) volts",
+                "(b) amps",
+                "(c) ohms",
+                "(d) Volt-amperes",
+                "d" 	
+             
+                 ];				 
+var QZ18=[	"Q.1 The positive and negative sequence impedance of which element are equal : ",
+                "(a) transmission line",
+                "(b) induction motor",
+                "(c) synchronous generator",
+                "(d) synchronous motor",
+                "a" ,
+            "Q.2 Zero sequence impedance of which elemeent is 2.5 to 5.5 times the positive sequence impedance : ",
+                "(a) induction motor",
+                "(b) transmission line",
+                "(c) synchronous motor ",
+                "(d) synchronous generator",
+                "b" ,
+			"Q.3 In a 3-phase system the neutral current is equal to  : ",
+                "(a) 3 Iao ",
+                "(b) Iao/3 ",
+                "(c) Iao ",
+                "(d) Iao/ sqrt(3)",
+                "a" ,
+            "Q.4 The internally generated negative sequence voltage of an alternator is : ",
+                "(a) zero",
+                "(b) same as positive sequence voltage",
+                "(c) 3 times positive sequence voltage",
+                "(d) sqrt(3) times positive sequence voltage",
+                "a" ,	
+			"Q.5 Select the correct sequence if machine reactances are arranged in decreasing order : ",
+                "(a) Xd -> Xq -> X2 -> Xd' -> Xd'' -> Xq'' -> Xo ",
+                "(b) Xq -> Xd -> X2 -> Xd' -> Xd'' -> Xq'' -> Xo ",
+                "(c) Xo -> Xq -> X2 -> Xd' -> Xd'' -> Xq'' -> Xd ",
+                "(d) Xd -> Xq'' -> X2 -> Xd' -> Xd'' -> Xq -> Xo ",
+                "a" ,
+            "Q.6 Presence of substantial amount of which of the following component is a definite indication of earth fault : ",
+                "(a) positive sequence ",
+                "(b) negative sequence",
+                "(c) zero sequence",
+                "(d) negative and zero sequence",
+                "c" ,
+			"Q.7 Presence  of substantial amount of which of the following component is a definite indication of one-phase-open : ",
+                "(a) positive sequence",
+                "(b) negative sequence",
+                "(c) zero sequence",
+                "(d) negative and zero sequence",
+                "b" ,
+            "Q.8 Protection used for unbalanced loading of alternator is with the help of an OC relay  :            ",
+                "(a) fed by positive sequence component of armature current with IDMT characteristics               ",
+                "(b) fed by negative sequence component of armature current with extremely inverse characteristics  ",
+                "(c) fed by negative sequence component of armature current with IDMT characteristics",
+                "(d) fed by zero sequence component of armature current with extremely inverse characteristics",
+                "b" ,		
+			"Q.9 A three phase system of voltages was found to be (100/_30deg) V, (86.66+j50)V , (86.66+j50)V. The symmetrical components of this system of voltages is  : ",
+                "(a) +ve seq. = zero        , -ve seq. = zero         ,   zero seq. = (100/_30deg)",
+                "(b) +ve seq. = zero        , -ve seq. = (100/_30deg) ,   zero seq. = zero ",
+                "(c) +ve seq. = zero        , -ve seq. = (100/_30deg) ,   zero seq. = (100/_30deg)",
+                "(d) +ve seq. = (100/_30deg), -ve seq. = zero         ,   zero seq. = zero ",
+                "a" ,
+            "Q.10 The negative sequence reactance of a synchronous machine is equal to  : ",
+                "(a) ( Xd'  + Xq') / 2 ",
+                "(b) ( Xd'' + Xq'') / 2",
+                "(c) ( Xd   + Xq) / 2",
+                "(d) ( Xq'  + Xq'') / 2",
+                "b" 	
+             
+                 ];		
+var QZ19=[	"Q.1 When a CT becomes heavily saturated   : ",
+                "(a) seondary current becomes constant",
+                "(b) primary current becomes constant",
+                "(c) secondary current is more than that given by nominal CT ratio",
+                "(d) secondary current becomes almost zero",
+                "d" ,
+            "Q.2 A protection CT can be driven in to saturation by : ",
+                "(a) decreasing the impedance of the burden below the rated value",
+                "(b) decreasing the primary current below the rated value ",
+                "(c) increasing the primary current to more than 20 times the rated value while keeping burden constant",
+                "(d) increasing the primary current to more than 10 times the rated value while keeping burden constant",
+                "c" ,
+			"Q.3 A protection CT can be driven in to saturation by : : ",
+                "(a) opening the primary circuit",
+                "(b) opening the secondary circuit",
+                "(c) shorting the secondary winding",
+                "(d) connecting a meter current coil acoss the secondary ",
+                "b" ,
+            "Q.4 As a CT approaches saturation : ",
+                "(a) Magnetizing current drawn by the CT becomes less and less ",
+                "(b) Magnetizing current drawn by the CT becomes more and more ",
+                "(c) It delivers more and more current to the burden",
+                "(d) More and more voltage is induced in the secondary",
+                "b" ,	
+			"Q.5 Choose the correct statement : ",
+                "(a) measurement CT  must saturate ,    by design, during     fault   ",
+                "(b) measurement CT  must not saturate , by design, during    fault   ",
+                "(c) protection  CT  must saturate , by design, during smallest fault ",
+                "(d) protection  CT  must saturate , by design, during largest  fault ",
+                "a" ,
+            "Q.6 A measurement CT is so designed and operated so that : ",
+                "(a) measurement CT does not saturate during load and does not saturates during fault",
+                "(b) measurement CT does not saturate during load and saturates during fault",
+                "(c) measurement CT saturate during load and does not saturates during fault",
+                "(d) measurement CT saturate during load and saturates during fault",
+                "b" ,
+			"Q.7 High value of system X/R causes : ",
+                "(a) higher peak of transient flux increasing the possiblity of transient saturation of CT",
+                "(b) higher peak of transient flux decreasing the possiblity of transient saturation of CT",
+                "(c) lower  peak of transient flux increasing the possiblity of transient saturation of CT",
+                "(d) lower  peak of transient flux decreasing the possiblity of transient saturation of CT",
+                "a" ,
+            "Q.8  According to IEC convention a 2000/5A CT is designated as 25VA,5P20. This is decoded as: ",
+                "(a) Rated Burden  = 25 VA  , Ratio error <= 20 %  for primary  current of 1000    A   ",
+                "(b) Rated Burden  = 25 VA  , Ratio error <= 5  %  for primary current of  40,000  A   ",
+                "(c) Rated Burden  = 25 VA  , Ratio error <= 5  %  for primary current of  400     A   ",
+                "(d) Rated Burden  = 25 VA  , Ratio error <= 20 %  for primary current of  100     A   ",
+                "b" ,		
+			"Q.9 Primary current of a CT depends upon  : ",
+                "(a) burden on the secondary",
+                "(b) ratio of transformation of CT",
+                "(c) voltage induced in the secondary winding of the CT",
+                "(d) load in the primary circuit",
+                "d" ,
+            "Q.10 If the secondary of a CT is open circuited while the primary is carrying current : ",
+                "(a) both the primary and the secondary current will become zero: no harm done       ",
+                "(b) only the secondary current will become zero: no harm done                       ",
+                "(c) it will induce dangerously high voltage in the secondary                        ",
+                "(d) it will induce dangerously high voltage in the primary                          ",
+                "c" 	
+             
+                 ];				 
+var QZ20=[	"Q.1 In all circuit breakers arcing is desirable  : ",
+                "(a) only after contact seperation till current zero ",
+                "(b) after contact seperation beyond current zero",
+                "(c) only during the post-current-zero period",
+                "(d) only if there is a mechanism for forced arc extinction",
+                "a" ,
+            "Q.2 Bulk oil CB is suitable for  : ",
+                "(a) low voltage systems ",
+                "(b) medium voltage systems",
+                "(c) high voltage systems",
+                "(d) extra high voltage systems",
+                "a" ,
+			"Q.3 Sulphur hexa fluoride  gas is  : ",
+                "(a) six times heavier than air ",
+                "(b) six times lighter than air",
+                "(c) weighs the same as air",
+                "(d) five times heavier than air",
+                "d" ,
+            "Q.4 Arc formation in vacuum CB is due to  : ",
+                "(a) ions present in the vacuum",
+                "(b) thermi-ionic radiation from electrodes",
+                "(c) vaporization of electrode material",
+                "(d) electrons emitted by CB enclosure",
+                "c" ,	
+			"Q.5 Possibility of current chopping is more in whcih type of CB : ",
+                "(a) bulk oil CB",
+                "(b) MOCB",
+                "(c) air blast and vacuum",
+                "(d) SF6",
+                "c" ,
+            "Q.6 Fire hazard inherently exists in which type of CB : ",
+                "(a) bulk oil",
+                "(b) Minimum oil",
+                "(c) air blast",
+                "(d) vacuum",
+                "a" ,
+			"Q.7 Given that w=natural frequency in rads/sec. Rate of rise of restriking voltage ( RRRV) is given by  : ",
+                "(a) w Vm ( 1 - cos(w t)",
+                "(b) w Vm  sin(w t)     ",
+                "(c) w Vm ( 1 - sin(w t)",
+                "(d) w Vm cos (w t ) ",
+                "a" ,
+            "Q.8 Peak value that can be attained by restriking voltage is given by : ",
+                "(a) + Vm     ",
+                "(b) - Vm     ",
+                "(c) +/- Vm   ",
+                "(d) +/- 2 Vm ",
+                "d" ,		
+			"Q.9 Recovery voltage of a CB is  : ",
+                "(a) voltage across CB when contacts are closed",
+                "(b) voltage across CB when contacts are moving from closed to open state",
+                "(c) voltage across Cb contacts when contacts start parting but before current zero",
+                "(d) after contacts part and arc is interrupted",
+                "d" ,
+            "Q.10 With reference to circuit breakers , choose the correct statement : ",
+                "(a) making capability should be 2.5 times the breking capability",
+                "(b) breaking capability should be 2.5 times making capability",
+                "(c) making capability should be sqrt(3) times breaking capability",
+                "(d) making capability should be equal to breaking capability",
+                "a" 	
+				];		
+			 
+  QBsize= QAlist.length;
+  NQ = QAlist.length/6;
+//=================== various functions are listed below ===============================================
+function myNextQ()
+{
+  var Q0,Q1,Q2,Q3,Q4
+  document.getElementById("Msg_No_of_Q_in_QB").innerHTML= "No of Questions in QB ="+NQ;
+  Q=Q+1;
+  Q0=Q; Q1=Q+1;Q2=Q+2;Q3=Q+3;Q4=Q+4;
+  document.getElementById("qText").innerHTML= QAlist[Q0];
+  document.getElementById("Opt_a_butt").value= QAlist[Q1];
+  document.getElementById("Opt_b_butt").value= QAlist[Q2];
+  document.getElementById("Opt_c_butt").value= QAlist[Q3];
+  document.getElementById("Opt_d_butt").value= QAlist[Q4];
+  document.getElementById("Ur_Response").innerHTML= "Press any of the above options";
+  Q=Q+5; 
+  QQ=QQ+1;
+// Jump over the four options and correct answer and land on next question
+// disabling the nextQ button and waiting for input
+// after the input is obtained and processed this button will have to be enabled back again
+// but that will be in the input processing function
+document.getElementById("Submit_butt").disabled = false;
+}  // end of function myNextQ() 
+//=======================================================================================
+function response(x)
+{
+ resp = x;
+ document.getElementById("disp").innerHTML= "Questions Attempted =  "+ QQ + " :  Out of " + NQ + " Questions"
+ document.getElementById('Ur_Response').style.visibility = 'visible';
+ document.getElementById('Submit_butt').style.visibility = 'visible';
+ document.getElementById("Ur_Response").innerHTML= "Your response = " + resp ;
+ document.getElementById("Submit_butt").value= "Click to Submit";
+ document.getElementById("Submit_butt").disabled = false;
+ }// end of function respomse(x)
+// ====================================================================================
+ function checkResp()
+{
+ document.getElementById('Submit_butt').style.visibility = 'hidden';
+ document.getElementById("Ur_Response").innerHTML= ""; 
+ document.getElementById('qText').style.visibility = 'hidden';
+ document.getElementById('Opt_a_butt').style.visibility = 'hidden';
+ document.getElementById('Opt_b_butt').style.visibility = 'hidden';
+ document.getElementById('Opt_c_butt').style.visibility = 'hidden';
+ document.getElementById('Opt_d_butt').style.visibility = 'hidden';
+ replies.push(resp);
+ if ( resp == QAlist[Q]) { score = score +1 ;}
+ //
+ document.getElementById("Submit_butt").disabled = true;
+ document.getElementById('start').style.visibility="visible";
+ document.getElementById('start').innerHTML="Next ";
+ 
+ 
+ if ( (Q+1) > (QBsize-1)) 
+   {
+    alert("Reched End of Quiz \n\n"  + " Your Score = " + score +"  Out of "+NQ +"\n\n\n\n\n Press OK to see Correct Answers  " );
+	 document.getElementById('start').style.visibility="hidden";
+    showReplies();
+	}
+ 
+ 
+ } //end of function checkResp()
+//==========================================================================================
+function showReplies()
+{
+ /*
+ for ( var i=0; i < replies.length;i++)
+ {
+  document.write( " Question No =  ",i+1,"&nbsp &nbsp &nbsp", "Your Reply =   " , replies[i],"&nbsp &nbsp &nbsp","Correct Answer =   ",QAlist[6*i+5],"<br>","<br>");
+ }
+ 
+ document.write("Result","<br>");
+ document.write("=========================================================","<br>");
+ document.write ("Total Questions = ", NQ,"&nbsp &nbsp &nbsp &nbsp","Correct Answers = ",score,"&nbsp &nbsp&nbsp &nbsp","Score = ",score);
+ */
+   
+   document.getElementById('qText').style.visibility       = 'hidden';
+   document.getElementById('Opt_a_butt').style.visibility  = 'hidden';
+   document.getElementById('Opt_b_butt').style.visibility  = 'hidden';
+   document.getElementById('Opt_c_butt').style.visibility  = 'hidden';
+   document.getElementById('Opt_d_butt').style.visibility  = 'hidden';
+ 
+ Q  = -1;
+ QQ =  0;
+ 
+ ShowQandKey();
+ 
+} // end of function showReplies()
+//==============================================================================================
+function hideAllExceptStart_butt()
+{
+ document.getElementById('start').style.visibility            = "hidden"; 
+ document.getElementById('qText').style.visibility            = 'hidden';
+ document.getElementById('Opt_a_butt').style.visibility       = 'hidden';
+ document.getElementById('Opt_b_butt').style.visibility       = 'hidden';
+ document.getElementById('Opt_c_butt').style.visibility       = 'hidden';
+ document.getElementById('Opt_d_butt').style.visibility       = 'hidden';
+ document.getElementById('showReplies').style.visibility      = 'hidden';
+ document.getElementById('Submit_butt').style.visibility      = 'hidden';
+ document.getElementById('nextQRespKey').style.visibility  = 'hidden';
+ }// end of function hideAllExceptStart_butt()
+//====================================================================================================
+function showAllExceptStart_butt()
+{
+   document.getElementById('start').style.visibility       = "hidden";
+   document.getElementById('qText').style.visibility       = 'visible';
+   document.getElementById('Opt_a_butt').style.visibility  = 'visible';
+   document.getElementById('Opt_b_butt').style.visibility  = 'visible';
+   document.getElementById('Opt_c_butt').style.visibility  = 'visible';
+   document.getElementById('Opt_d_butt').style.visibility  = 'visible';
+    
+   myNextQ();
+}// end of function showAllExceptStart_butt()
+//=======================================================================================================
+
+
+function ShowQandKey()
+{
+    var Q0,Q1,Q2,Q3,Q4;
+	
+	 //alert(" Inside ShowQandKey()");
+  document.getElementById('nextQRespKey').style.visibility  = 'visible';
+  document.getElementById("ShowingQandKey").innerHTML= "Showing Questions , Your Responses and and Correct Answer (key)";
+  document.getElementById("Msg_No_of_Q_in_QB").innerHTML= "No of Questions in QB ="+NQ;
+  //alert("QQ = " + QQ+ "NQ="+NQ);
+      if (QQ === NQ) 
+	  { 
+	  document.getElementById("ShowingQandKey").innerHTML      = " "
+	  document.getElementById('nextQRespKey').style.visibility ='hidden';
+	  document.getElementById("QuText").innerHTML              = " ";
+      document.getElementById("Opt_a_Text").innerHTML          = " ";
+      document.getElementById("Opt_b_Text").innerHTML          = " ";
+      document.getElementById("Opt_c_Text").innerHTML          = " ";
+      document.getElementById("Opt_d_Text").innerHTML          = " ";
+      document.getElementById("YourResponse").innerHTML        = " ";
+      document.getElementById("CorrectAns").innerHTML          = " ";
+	  
+	  document.getElementById('alvida').innerHTML="You have seen all Questions, Responses and Correct Answers.</br>That's All Folks. Thanks for your interest";
+	  alert("End of Quiz.\n\n To Stop Close This Browser Tab\n\n\n Press OK For Main Menu and take Another Quiz  ");
+	  location.reload();
+	  //return; 
+	  } 
+	  
+  Q=Q+1;
+  Q0=Q; Q1=Q+1;Q2=Q+2;Q3=Q+3;Q4=Q+4;
+  document.getElementById("QuText").innerHTML= QAlist[Q0];
+  document.getElementById("Opt_a_Text").innerHTML= QAlist[Q1];
+  document.getElementById("Opt_b_Text").innerHTML= QAlist[Q2];
+  document.getElementById("Opt_c_Text").innerHTML= QAlist[Q3];
+  document.getElementById("Opt_d_Text").innerHTML= QAlist[Q4];
+  document.getElementById("YourResponse").innerHTML= "Your Response= "+replies[QQ];
+  document.getElementById("CorrectAns").innerHTML="Correct Ans= "+QAlist[Q+5];
+  Q=Q+5; 
+  QQ=QQ+1;
+// Jump over the four options and correct answer and land on next question
+// disabling the nextQ button and waiting for input
+// after the input is obtained and processed this button will have to be enabled back again
+// but that will be in the input processing function
+//document.getElementById("Submit_butt").disabled = false;
+
+
+ }  // end of function ShowQandKey() 
+//=================================
+function conductQuiz(ListName,k)
+{
+ QAlist=ListName;
+ QBsize= QAlist.length;
+  NQ = QAlist.length/6;
+showAllExceptStart_butt();
+document.getElementById("QuizName").innerHTML=QuizTitles[k];
+document.getElementById('qz1_butt').style.visibility        = "hidden";
+document.getElementById('qz2_butt').style.visibility        = "hidden";
+document.getElementById('qz3_butt').style.visibility        = "hidden";
+document.getElementById('qz4_butt').style.visibility        = "hidden";
+document.getElementById('qz5_butt').style.visibility        = "hidden";
+document.getElementById('qz6_butt').style.visibility        = "hidden";
+document.getElementById('qz7_butt').style.visibility        = "hidden";
+document.getElementById('qz8_butt').style.visibility        = "hidden";
+document.getElementById('qz9_butt').style.visibility        = "hidden";
+document.getElementById('qz10_butt').style.visibility       = "hidden";
+document.getElementById('qz11_butt').style.visibility       = "hidden";
+document.getElementById('qz12_butt').style.visibility       = "hidden";
+document.getElementById('qz13_butt').style.visibility       = "hidden";
+document.getElementById('qz14_butt').style.visibility       = "hidden";
+document.getElementById('qz15_butt').style.visibility       = "hidden";
+document.getElementById('qz16_butt').style.visibility       = "hidden";
+document.getElementById('qz17_butt').style.visibility       = "hidden";
+document.getElementById('qz18_butt').style.visibility       = "hidden";
+document.getElementById('qz19_butt').style.visibility       = "hidden";
+document.getElementById('qz20_butt').style.visibility       = "hidden";
+
+} // end of function conductQuiz(ListName)
+</script>
+</head>
+
+<body onload='hideAllExceptStart_butt()'>
+<body>
+<h1> Power System Protection Quiz </h1>
+<p id="QuizName" class='QuizName'>  </p>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp<button id='qz1_butt'  class='gundi' onclick='conductQuiz(QZ1,0)'>     Quiz No.01   </button> 
+<button id='qz2_butt'  class='gundi' onclick='conductQuiz(QZ2,1)'>     Quiz No.02   </button>
+<button id='qz3_butt'  class='gundi' onclick='conductQuiz(QZ3,2)'>     Quiz No.03   </button> 
+<button id='qz4_butt'  class='gundi' onclick='conductQuiz(QZ4,3)'>     Quiz No.04   </button>
+<button id='qz5_butt'  class='gundi' onclick='conductQuiz(QZ5,4)'>     Quiz No.05   </button> 
+<button id='qz6_butt'  class='gundi' onclick='conductQuiz(QZ6,5)'>     Quiz No.06   </button>
+<button id='qz7_butt'  class='gundi' onclick='conductQuiz(QZ7,6)'>     Quiz No.07   </button> 
+<button id='qz8_butt'  class='gundi' onclick='conductQuiz(QZ8,7)'>     Quiz No.08   </button>
+<button id='qz9_butt'  class='gundi' onclick='conductQuiz(QZ9,8)'>     Quiz No.09   </button> 
+<button id='qz10_butt' class='gundi' onclick='conductQuiz(QZ10,9)'>    Quiz No.10   </button> <br>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp<button id='qz11_butt' class='gundi' onclick='conductQuiz(QZ11,10)'>   Quiz No.11   </button>
+<button id='qz12_butt'  class='gundi' onclick='conductQuiz(QZ12,11)'>  Quiz No.12   </button>
+<button id='qz13_butt'  class='gundi' onclick='conductQuiz(QZ13,12)'>  Quiz No.13   </button> 
+<button id='qz14_butt'  class='gundi' onclick='conductQuiz(QZ14,13)'>  Quiz No.14   </button>
+<button id='qz15_butt'  class='gundi' onclick='conductQuiz(QZ15,14)'>  Quiz No.15   </button> 
+<button id='qz16_butt'  class='gundi' onclick='conductQuiz(QZ16,15)'>  Quiz No.16   </button>
+<button id='qz17_butt'  class='gundi' onclick='conductQuiz(QZ17,16)'>  Quiz No.17   </button> 
+<button id='qz18_butt'  class='gundi' onclick='conductQuiz(QZ18,17)'>  Quiz No.18   </button>
+<button id='qz19_butt'  class='gundi' onclick='conductQuiz(QZ19,18)'>  Quiz No.19   </button> 
+<button id='qz20_butt' class='gundi' onclick='conductQuiz(QZ20,19)'>   Quiz No.20   </button> <br>
+
+
+
+<p id='ShowingQandKey'>  </p>
+<button id="start" class='gundi2' onclick="showAllExceptStart_butt()">   </button>    
+<p id="qText"  class='qText' value= "" > </p> 
+<p id="QuText" class='qText'>   </p>
+<input id="Opt_a_butt" type="button" class='gundi' value= "" onclick= "response('a')"> 
+<p id="Opt_a_Text" class='yellowBackgnd'>   </p>
+<input id="Opt_b_butt" type="button" class='gundi' value= "" onclick= "response('b')"> 
+<p id="Opt_b_Text" class='yellowBackgnd'>  </p>
+<input id="Opt_c_butt" type="button" class='gundi' value= "" onclick= "response('c')"> 
+<p id="Opt_c_Text" class='yellowBackgnd'>   </p>
+<input id="Opt_d_butt" type="button" class='gundi' value= "" onclick= "response('d')"> 
+<p id="Opt_d_Text"  class='yellowBackgnd'>  </p>
+<p id="Ur_Response" class='srb' >   </p>
+<p id="YourResponse" class='srb'>   </p>
+<p id="CorrectAns">   </p>
+<button id='nextQRespKey' class='gundi2' onclick='ShowQandKey()'> Next Question-Your Resp-Key </button>
+<p id='alvida'> </p>
+<input id="Submit_butt" type="button" class='gundi2' value= "" onclick="checkResp()" > <br> <br>
+<p id="Msg_No_of_Q_in_QB">  </p>
+<p id="disp">    </p>
+<button id="showReplies" class='gundi' onclick= "showReplies()" > Show Replies  </button>
+
+
+</body>
+</html>>
